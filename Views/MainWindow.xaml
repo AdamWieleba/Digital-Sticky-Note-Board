@@ -45,7 +45,8 @@
 
             <Canvas Width="2000"
                     Height="1200"
-                    Background="#EAEAEA">
+                    Background="#EAEAEA"
+                    MouseLeftButtonDown="Board_MouseLeftButtonDown">
 
                 <ItemsControl ItemsSource="{Binding Notes}">
 
@@ -73,10 +74,24 @@
                                     MinHeight="180"
                                     Background="{Binding Color}"
                                     Padding="15"
-                                    Margin="0"
                                     CornerRadius="3"
-                                    BorderBrush="#22000000"
-                                    BorderThickness="1">
+                                    BorderThickness="3"
+                                    MouseLeftButtonDown="Note_MouseLeftButtonDown">
+
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="BorderBrush"
+                                                Value="Transparent"/>
+
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsSelected}"
+                                                        Value="True">
+                                                <Setter Property="BorderBrush"
+                                                        Value="#333333"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
 
                                 <Grid>
 

@@ -37,14 +37,16 @@ namespace DigitalStickyNoteBoard.ViewModels
             var note = new Note
             {
                 Title = "Nowa notatka",
-                Content = "Treœæ notatki..."
+                Content = "Treœæ notatki...",
+                X = 50 + (Notes.Count % 5) * 240,
+                Y = 50 + (Notes.Count / 5) * 200
             };
 
             var noteViewModel = new NoteViewModel(note);
 
             Notes.Add(noteViewModel);
 
-            SelectedNote = noteViewModel;
+            SelectNote(noteViewModel);
         }
 
         private void DeleteNote()
@@ -52,7 +54,33 @@ namespace DigitalStickyNoteBoard.ViewModels
             if (SelectedNote == null)
                 return;
 
+            SelectedNote.IsSelected = false;
+
             Notes.Remove(SelectedNote);
+
+            SelectedNote = null;
+        }
+
+        public void SelectNote(NoteViewModel note)
+        {
+            if (SelectedNote == note)
+                return;
+
+            if (SelectedNote != null)
+            {
+                SelectedNote.IsSelected = false;
+            }
+
+            SelectedNote = note;
+            SelectedNote.IsSelected = true;
+        }
+
+        public void ClearSelection()
+        {
+            if (SelectedNote == null)
+                return;
+
+            SelectedNote.IsSelected = false;
             SelectedNote = null;
         }
     }

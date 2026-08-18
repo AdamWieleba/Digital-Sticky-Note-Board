@@ -6,6 +6,7 @@ namespace DigitalStickyNoteBoard.ViewModels
     public class NoteViewModel : BaseViewModel
     {
         private readonly Note _note;
+        private bool _isSelected;
 
         public NoteViewModel(Note note)
         {
@@ -18,6 +19,12 @@ namespace DigitalStickyNoteBoard.ViewModels
         public Note Model => _note;
 
         public Guid Id => _note.Id;
+
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set => SetProperty(ref _isSelected, value);
+        }
 
         public string Title
         {
