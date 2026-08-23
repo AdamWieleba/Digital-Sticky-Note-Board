@@ -22,6 +22,9 @@ namespace DigitalStickyNoteBoard.Views
 
         private void Note_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            if (e.OriginalSource is TextBox)
+                return;
+
             if (sender is Border border &&
                 border.DataContext is NoteViewModel note &&
                 DataContext is MainViewModel viewModel)
@@ -74,6 +77,24 @@ namespace DigitalStickyNoteBoard.Views
             if (DataContext is MainViewModel viewModel)
             {
                 viewModel.ClearSelection();
+            }
+        }
+
+        private void TitleTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Keyboard.ClearFocus();
+                e.Handled = true;
+            }
+        }
+
+        private void ContentTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                Keyboard.ClearFocus();
+                e.Handled = true;
             }
         }
     }

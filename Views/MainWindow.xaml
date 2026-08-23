@@ -103,17 +103,31 @@
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock Text="{Binding Title}"
-                                               FontSize="18"
-                                               FontWeight="SemiBold"
-                                               Foreground="#333333"
-                                               Margin="0,0,0,10"/>
+                                    <!-- Tytuł -->
+                                    <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"
+                                             FontSize="18"
+                                             FontWeight="SemiBold"
+                                             Foreground="#333333"
+                                             Background="Transparent"
+                                             BorderThickness="0"
+                                             Padding="0"
+                                             Margin="0,0,0,10"
+                                             TextWrapping="NoWrap"
+                                             AcceptsReturn="False"
+                                             KeyDown="TitleTextBox_KeyDown"/>
 
-                                    <TextBlock Grid.Row="1"
-                                               Text="{Binding Content}"
-                                               FontSize="14"
-                                               Foreground="#444444"
-                                               TextWrapping="Wrap"/>
+                                    <!-- Treść -->
+                                    <TextBox Grid.Row="1"
+                                             Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}"
+                                             FontSize="14"
+                                             Foreground="#444444"
+                                             Background="Transparent"
+                                             BorderThickness="0"
+                                             Padding="0"
+                                             TextWrapping="Wrap"
+                                             AcceptsReturn="True"
+                                             VerticalScrollBarVisibility="Auto"
+                                             KeyDown="ContentTextBox_KeyDown"/>
 
                                 </Grid>
 
