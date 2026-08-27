@@ -1,8 +1,9 @@
-﻿using System;
+﻿using DigitalStickyNoteBoard.Models;
+using DigitalStickyNoteBoard.ViewModels;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using DigitalStickyNoteBoard.ViewModels;
 
 namespace DigitalStickyNoteBoard.Views
 {
@@ -22,9 +23,17 @@ namespace DigitalStickyNoteBoard.Views
 
         private void Note_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.OriginalSource is TextBox)
-                return;
+            if (sender is Border border &&
+                border.DataContext is NoteViewModel note &&
+                DataContext is MainViewModel viewModel)
+            {
+                viewModel.SelectNote(note);
+                e.Handled = true;
+            }
+        }
 
+        private void Note_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
             if (sender is Border border &&
                 border.DataContext is NoteViewModel note &&
                 DataContext is MainViewModel viewModel)
@@ -47,7 +56,7 @@ namespace DigitalStickyNoteBoard.Views
             if (_draggedNote == null)
                 return;
 
-            if (e.LeftButton != MouseButtonState.Pressed)
+            if (e.RightButton != MouseButtonState.Pressed)
                 return;
 
             Point currentPoint = e.GetPosition(BoardCanvas);
@@ -59,7 +68,7 @@ namespace DigitalStickyNoteBoard.Views
             _draggedNote.Y = Math.Max(0, _noteStartY + deltaY);
         }
 
-        private void BoardCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void BoardCanvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (_draggedNote == null)
                 return;
@@ -70,9 +79,11 @@ namespace DigitalStickyNoteBoard.Views
             }
 
             _draggedNote = null;
+
+            e.Handled = true;
         }
 
-        private void Board_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Board_MouseButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (DataContext is MainViewModel viewModel)
             {

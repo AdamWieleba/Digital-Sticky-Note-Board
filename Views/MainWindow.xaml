@@ -47,9 +47,10 @@
                     Width="2000"
                     Height="1200"
                     Background="#EAEAEA"
-                    MouseLeftButtonDown="Board_MouseLeftButtonDown"
-                    MouseMove="BoardCanvas_MouseMove"
-                    MouseLeftButtonUp="BoardCanvas_MouseLeftButtonUp">
+                    MouseLeftButtonDown="Board_MouseButtonDown"
+                    MouseRightButtonDown="Board_MouseButtonDown"
+                    MouseRightButtonUp="BoardCanvas_MouseRightButtonUp"
+                    MouseMove="BoardCanvas_MouseMove">
 
                 <ItemsControl ItemsSource="{Binding Notes}">
 
@@ -79,7 +80,8 @@
                                     Padding="15"
                                     CornerRadius="3"
                                     BorderThickness="3"
-                                    MouseLeftButtonDown="Note_MouseLeftButtonDown">
+                                    MouseLeftButtonDown="Note_MouseLeftButtonDown"
+                                    PreviewMouseRightButtonDown="Note_PreviewMouseRightButtonDown">
 
                                 <Border.Style>
                                     <Style TargetType="Border">
