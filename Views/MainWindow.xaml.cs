@@ -19,6 +19,16 @@ namespace DigitalStickyNoteBoard.Views
             InitializeComponent();
 
             DataContext = new MainViewModel();
+
+            Closing += MainWindow_Closing;
+        }
+
+        private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (DataContext is MainViewModel viewModel)
+            {
+                viewModel.SaveNotes();
+            }
         }
 
         private void Note_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
